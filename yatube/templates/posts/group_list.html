@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}{{ title }}{% endblock %}
+{% block header %}
+  <div class="container py-5">
+    <h1>{{ title }}</h1>
+  </div>
+{% endblock %}
+{% block content %}
+  <div class="container py-5">
+    <p>{{ group.description }}</p>
+    {% for post in page_obj %}
+      <article>
+        {% include 'posts/includes/post_list.html' %}
+        {% if not forloop.last %}<hr>{% endif %}
+      </article>
+    {% endfor %}
+    {% include 'posts/includes/paginator.html' %}
+  </div>
+{% endblock %}

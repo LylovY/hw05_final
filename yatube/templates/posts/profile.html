@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %}
+  {{ title }}
+{% endblock %}
+{% block content %}
+<!-- класс py-5 создает отступы сверху и снизу блока -->
+<div class="container py-5">
+  <div class='mb-5'>
+    <h1>Все посты пользователя {{ fio }}</h1>
+    <h3>Всего постов: {{ count }}</h3>
+    {% if not self_follow %}
+      {% if following %}
+      <a
+        class="btn btn-lg btn-light"
+        href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+      >
+        Отписаться
+      </a>
+      {% else %}
+        <a
+          class="btn btn-lg btn-primary"
+          href="{% url 'posts:profile_follow' author.username %}" role="button"
+        >
+          Подписаться
+        </a>
+      {% endif %}
+    {% endif %}
+  </div>
+  {% for post in page_obj %}
+  <article>
+    {% include 'posts/includes/post_list.html' %}
+    <a href="{% url 'posts:post_detail' post.id %}">подробная информация </a>
+  </article>
+  {% if post.group %}
+    <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+  {% endif %}
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+  {% include 'posts/includes/paginator.html' %}
+</div>
+{% endblock %}
