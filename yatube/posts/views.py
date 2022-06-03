@@ -53,10 +53,9 @@ def profile(request, username):
         if request.user == author:
             self_follow = True
         if Follow.objects.filter(user=request.user).exists():
-            authors_follow = Follow.objects.values(
-                'author_id').filter(user=request.user).all()
-            list_id = [id['author_id'] for id in authors_follow]
-            if author.id in list_id:
+            authors_follow = User.objects.filter(
+                following__user=request.user).all()
+            if author in authors_follow:
                 following = True
     context = {
         'title': title,
