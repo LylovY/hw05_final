@@ -1,10 +1,11 @@
+from core.models import CreatedModel
 from django.contrib.auth import get_user_model
 from django.db import models
 
 User = get_user_model()
 
 
-class Group(models.Model):
+class Group(CreatedModel):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=50, unique=True)
     description = models.TextField()
@@ -13,7 +14,7 @@ class Group(models.Model):
         return self.title
 
 
-class Post(models.Model):
+class Post(CreatedModel):
     text = models.TextField(
         'Текст поста',
         help_text='Текст нового поста',
@@ -50,7 +51,7 @@ class Post(models.Model):
         return self.text[:15]
 
 
-class Comment(models.Model):
+class Comment(CreatedModel):
     post = models.ForeignKey(
         Post,
         related_name='comments',
@@ -69,10 +70,9 @@ class Comment(models.Model):
         'Текст комментария',
         help_text='Текст нового комментария',
     )
-    created = models.DateTimeField(auto_now_add=True)
 
 
-class Follow(models.Model):
+class Follow(CreatedModel):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -83,3 +83,9 @@ class Follow(models.Model):
         on_delete=models.CASCADE,
         related_name='following',
     )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'author'],
+                                    name='unique_following')
+        ]

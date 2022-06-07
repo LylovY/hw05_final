@@ -7,13 +7,12 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('text', 'group', 'image')
-        labels = {'text': 'Текст поста', 'group': 'Группа'}
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = {'text'}
+        fields = ('text',)
         widgets = {
             'text': forms.Textarea(attrs={'cols': 50, 'rows': 5})
         }
