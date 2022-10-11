@@ -6,19 +6,19 @@
   <div class="container py-5">
     <h1>{{ title }}</h1>
   </div>
-    {% cache 20 index_page %}
     <div class="container py-5 pt-2">
       {% include 'posts/includes/switcher.html' %}
-      {% for post in page_obj %}
-      <article>
-        {% include 'posts/includes/post_list.html' %}
-        {% if post.group %}
-          <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-        {% endif %}
-        {% if not forloop.last %}<hr>{% endif %}
-      </article>
-      {% endfor %}
+        {% for post in page_obj %}
+        <article>
+          {% include 'posts/includes/post_list.html' %}
+          {% if post.group %}
+          <div class='py-5 ms-3 pt-2'>
+            <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+          </div>
+          {% endif %}
+          {% if not forloop.last %}<hr>{% endif %}
+        </article>
+        {% endfor %}
       {% include 'posts/includes/paginator.html' %}
     </div>
-    {% endcache %}
 {% endblock %}
