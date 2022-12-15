@@ -2,6 +2,8 @@
 
 # Yatube
 
+Проект доступен по адресу BikeStories.pythonanywhere.com
+
 ## Описание
 
 Социальная сеть.
