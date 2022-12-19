@@ -1,4 +1,4 @@
-# yatube_project
+
 
 # Yatube
 
@@ -32,5 +32,6 @@ pip install -r requirements.txt
 ```
 python3 manage.py runserver
 ```
-
+## Планы развития
+В дальнейшем планирую добавить функционал лайков и определить ориентацию блога на велопутешествия. 
 
